@@ -9,11 +9,19 @@ class customer {
     this.name = name;
     this.order= order;
  }
- getcustomer() {
-    leftpanel.innerHTML = leftpanel.innerHTML + `<p>${this.name}</p>`
-    leftpanel.innerHTML = leftpanel.innerHTML + `<p>${this.order}</p>`
-    console.log(`${this.name} + ${this.order}` )
+ createcustomer() {
+    const newCustomer = document.createElement('div')
+    newCustomer.textContent = `${this.name} \n ${this.order}`
+    newCustomer.classList.add('customer');
+    newCustomer.addEventListener('click', function(event){
+        console.log(event.target.textContent)
+    })
+    leftpanel.appendChild(newCustomer);
  }
+ updatecustomer(){
+    document.getElementsByClassName('newCustomer')[0].textContent = customer1.name
+ }
+ 
 };
 class items{
     constructor(name, price){
@@ -22,7 +30,7 @@ class items{
      }
 createitem() {
     const newItem = document.createElement('div')
-    newItem.textContent = this.name
+    newItem.textContent = `${this.name} \n ${this.price}`
     newItem.classList.add('items');
     newItem.addEventListener('click', function(event){
         console.log(event.target.textContent)
@@ -31,14 +39,16 @@ createitem() {
 }
 
 };
-// nameinput.addEventListener('change', function () {
-//  console.log('change')
-//  leftpanel.innerHTML = leftpanel.innerHTML + `<p>${nameinput.value}</p>`;
-// })
-const dave = new customer('dave', 'tea');
-const tea = new items('tea', 1.20);
+const customer1 = new customer('dave', 'tea');
+const item1 = new items('item1', 1.20);
 const coffee = new items('coffee', 4.20);
 // // console.log(nameinput)
-// dave.getcustomer();
-tea.createitem()
+customer1.createcustomer();
+item1.createitem()
 coffee.createitem()
+nameinput.addEventListener('change', function () {
+    console.log(customer1)
+    customer1.name = nameinput.value
+    console.log(customer1)
+    document.getElementsByClassName('customer')[0].textContent = `${nameinput.value} \n ${customer1.order}`
+   })
